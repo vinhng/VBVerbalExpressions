@@ -141,6 +141,30 @@ Public Class VerbalExpression
         Return Add(String.Format("|({0})", value), sanitize)
     End Function
 
+    Public Function AddModifier(ByVal modifier As Char) As VerbalExpression
+        Select Case modifier
+            Case "i"
+                _modifiers = _modifiers Or RegexOptions.IgnoreCase
+            Case "x"
+                _modifiers = _modifiers Or RegexOptions.IgnorePatternWhitespace
+            Case "m"
+                _modifiers = _modifiers Or RegexOptions.Multiline
+        End Select
+        Return Me
+    End Function
+
+    Public Function RemoveModifier(ByVal modifier As Char) As VerbalExpression
+        Select Case modifier
+            Case "i"
+                _modifiers = _modifiers And Not RegexOptions.IgnoreCase
+            Case "x"
+                _modifiers = _modifiers And Not RegexOptions.IgnorePatternWhitespace
+            Case "m"
+                _modifiers = _modifiers And Not RegexOptions.Multiline
+        End Select
+        Return Me
+    End Function
+
     Sub CheckInput(ByVal value As String)
         If value Is Nothing Then Throw New Exception("value cannot be null")
     End Sub
