@@ -165,6 +165,20 @@ Public Class VerbalExpression
         Return Me
     End Function
 
+    Public Function WithAnyCase(Optional ByVal enabled As Boolean = True) As VerbalExpression
+        If enabled Then
+            Return AddModifier("i")
+        End If
+        Return RemoveModifier("i")
+    End Function
+
+    Public Function UseOneLineSearchOption(Optional ByVal enabled As Boolean = True) As VerbalExpression
+        If enabled Then
+            Return RemoveModifier("m")
+        End If
+        Return AddModifier("m")
+    End Function
+
     Sub CheckInput(ByVal value As String)
         If value Is Nothing Then Throw New Exception("value cannot be null")
     End Sub
