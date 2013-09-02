@@ -130,6 +130,17 @@ Public Class VerbalExpression
         Return Add(String.Format("({0})+", value), sanitize)
     End Function
 
+    Public Function [Or](ByVal value As String, Optional ByVal sanitize As Boolean = True) As VerbalExpression
+        CheckInput(value)
+        If _prefixes.IndexOf("(") < 0 Then
+            _prefixes &= "("
+        End If
+        If _suffixes.IndexOf(")") < 0 Then
+            _suffixes &= ")"
+        End If
+        Return Add(String.Format("|({0})", value), sanitize)
+    End Function
+
     Sub CheckInput(ByVal value As String)
         If value Is Nothing Then Throw New Exception("value cannot be null")
     End Sub
